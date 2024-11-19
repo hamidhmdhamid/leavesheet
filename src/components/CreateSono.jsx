@@ -57,11 +57,16 @@ function CreateSono(handleCreateSono) {
           placeholder="نام دکتر"
         />
       </FormControl>
-      <FormControl mt={5} isRequired>
-        <FormLabel>نام دکتر: </FormLabel>
-        <Input onChange={handleInput} name="address" placeholder="نام دکتر" />
+      <FormControl mt={5}>
+        <FormLabel>آدرس : </FormLabel>
+        <Input onChange={handleInput} name="address" placeholder="آدرس" />
       </FormControl>
-      <Button mt={5} onClick={() => {}}>
+      <Button
+        onClick={() => {
+          handleCreateSono({ name, codeMelli, age, mob, nameDoctor, address });
+        }}
+        mt={5}
+      >
         ایجاد
       </Button>
     </Box>

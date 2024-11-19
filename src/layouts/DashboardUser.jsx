@@ -313,6 +313,29 @@ const DashboardUser = () => {
       return false;
     }
   };
+  const handleCreateSono = async ({
+    name,
+    codeMelli,
+    age,
+    mob,
+    nameDoctor,
+    address,
+  }) => {
+    try {
+      const res = await axios.post(`http://94.183.213.199:8000/sonolist/new`, {
+        headers: {
+          Authorization: 'Bearer ' + token,
+          ContentType: 'content-type:application/json',
+        },
+      });
+      const prewListSono = listsono.map(sono => sono.id != id);
+      setListsono(prewListSono);
+      return true;
+    } catch {
+      console.log('Eroror');
+      return false;
+    }
+  };
   useEffect(() => {
     //   if (localStorage.getItem('token') != token) {
     //     if (location.state) {
@@ -362,7 +385,7 @@ const DashboardUser = () => {
         ) : (
           <></>
         )} */}
-        <CreateSono />
+        <CreateSono handleCreateSono={handleCreateSono} />
       </Box>
     </Box>
   );
