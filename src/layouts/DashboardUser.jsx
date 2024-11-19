@@ -36,6 +36,7 @@ import {
   FiList,
   FiUser,
   FiPower,
+  FiPlus,
 } from 'react-icons/fi';
 import { IconType } from 'react-icons';
 import { useContext, useEffect, useState } from 'react';
@@ -45,8 +46,7 @@ import { ContextApp } from '../context/context-provider';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import TablesSono from '../components/TableSono';
-
-
+import CreateSono from '../components/CreateSono';
 
 const SidebarContent = ({ onClose, LinkItems, ...rest }) => {
   return (
@@ -62,12 +62,16 @@ const SidebarContent = ({ onClose, LinkItems, ...rest }) => {
     >
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
         <Text fontSize="2xl" fontWeight="bold">
-          درخواست مرخصی
+          سنوگرافی
         </Text>
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {LinkItems.map(link => (
-        <NavItem key={link.name} icon={link.icon} onClick={()=>link.onClick()}>
+        <NavItem
+          key={link.name}
+          icon={link.icon}
+          onClick={() => link.onClick()}
+        >
           {link.name}
         </NavItem>
       ))}
@@ -77,15 +81,10 @@ const SidebarContent = ({ onClose, LinkItems, ...rest }) => {
 
 const NavItem = ({ icon, children, ...rest }) => {
   return (
-    <Box
-      overflow="hidden"
-      as="a"
-      href="#"
-      style={{ textDecoration: 'none' }}
-      _focus={{ boxShadow: 'none' }}
-    >
+    <Box style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
       <Flex
         align="center"
+        as="a"
         p="4"
         mx="4"
         borderRadius="lg"
@@ -113,7 +112,7 @@ const NavItem = ({ icon, children, ...rest }) => {
   );
 };
 
-const MobileNav = ({ user, onOpen, ...rest }) => {
+const MobileNav = ({ user, onOpen, signOut, ...rest }) => {
   return (
     <Flex
       overflow="hidden"
@@ -214,7 +213,7 @@ const MobileNav = ({ user, onOpen, ...rest }) => {
                   color: 'white',
                 }}
               >
-                <Box overflow="hidden" pl="10px">
+                <Box onClick={() => signOut()} overflow="hidden" pl="10px">
                   <FiPower />
                 </Box>
                 خروج
@@ -234,7 +233,7 @@ const DashboardUser = () => {
   const [token, setToken] = useState('');
   const toast = useToast();
   const [user, setUser] = useState({ name: 'hMd' });
-  const [listsono,setListsono] = useState([{}]);
+  const [listsono, setListsono] = useState([{}]);
 
   const getUser = async () => {
     try {
@@ -249,29 +248,71 @@ const DashboardUser = () => {
     }
   };
 
-  
-  const getSonoList = async() =>{
+  const getSonoList = async () => {
     try {
-     
       const res = await axios.get('http://94.183.213.199:8000/sonolist/all', {
         headers: { Authorization: 'Bearer ' + token },
       });
       setListsono(res.data);
-      console.log(res.data)
+
       return res.data;
     } catch {
       console.log('Eroror');
       return {};
     }
-  }
+  };
+  const signOut = async () => {
+    try {
+      const res = await axios.get('http://94.183.213.199:8000/signout', {
+        headers: { Authorization: 'Bearer ' + token },
+      });
+      navigate('/');
+    } catch {
+      console.log('Eroror');
+      return false;
+    }
+  };
   const LinkItems = [
-    { name: 'خانه', icon: FiHome , onClick:async ()=>{} },
-    { name: 'لیست سونو ها', icon: FiList,onClick:async ()=>{getSonoList()} },
-    { name: 'درخواست مرخصی', icon: FiCompass , onClick:async ()=>{}},
-    { name: 'کارتابل', icon: FiStar , onClick:async ()=>{}},
-    { name: 'تنظیمات', icon: FiSettings ,onClick:async ()=>{} },
+    { name: 'خانه', icon: FiHome, onClick: async () => {}, actived: false },
+    {
+      name: 'ثبت سنو جدید',
+      icon: FiPlus,
+      onClick: async () => {},
+      actived: false,
+    },
+    {
+      name: 'لیست سونو ها',
+      icon: FiList,
+      onClick: async () => {
+        getSonoList();
+      },
+      actived: false,
+    },
+    { name: 'کارتابل', icon: FiStar, onClick: async () => {}, actived: false },
+    {
+      name: 'تنظیمات',
+      icon: FiSettings,
+      onClick: async () => {},
+      actived: false,
+    },
   ];
-  
+
+  const handleRemoveSono = async id => {
+    try {
+      const res = await axios.delete(
+        `http://94.183.213.199:8000/sonolist/${id}`,
+        {
+          headers: { Authorization: 'Bearer ' + token },
+        }
+      );
+      const prewListSono = listsono.map(sono => sono.id != id);
+      setListsono(prewListSono);
+      return true;
+    } catch {
+      console.log('Eroror');
+      return false;
+    }
+  };
   useEffect(() => {
     //   if (localStorage.getItem('token') != token) {
     //     if (location.state) {
@@ -286,7 +327,9 @@ const DashboardUser = () => {
     // setToken(
     //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjMwODAxNDY2MDMiLCJpZCI6MSwiaWF0IjoxNzMxOTYxMDc2LCJleHAiOjE3MzQxMjEwNzZ9.N7k-oSzX86NeT7ZamwRqC3yjL5zFzL4gsXN5aseiNO8'
     // );
-    setToken('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjMwODAxNDY2MDMiLCJpZCI6MSwiaWF0IjoxNzMyMDA3NjUwLCJleHAiOjE3MzQxNjc2NTB9.2WdmO5FupDhmz9sO8YOB_2u4QYzBOFXOsAYR3C1ayJc')
+    setToken(
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjMwODAxNDY2MDMiLCJpZCI6MSwiaWF0IjoxNzMyMDA3NjUwLCJleHAiOjE3MzQxNjc2NTB9.2WdmO5FupDhmz9sO8YOB_2u4QYzBOFXOsAYR3C1ayJc'
+    );
     getUser();
   }, [token]);
   return (
@@ -312,9 +355,14 @@ const DashboardUser = () => {
           <SidebarContent onClose={onClose} />
         </DrawerContent>
       </Drawer>
-      <MobileNav user={user} onOpen={onOpen} />
+      <MobileNav signOut={signOut} user={user} onOpen={onOpen} />
       <Box mr={{ base: 0, md: 60 }} p="4">
-        {(listsono.length > 1 )? <TablesSono listsono = {listsono} /> : <></>}
+        {/* {listsono[0].name ? (
+          <TablesSono listsono={listsono} handleRemoveSono={handleRemoveSono} />
+        ) : (
+          <></>
+        )} */}
+        <CreateSono />
       </Box>
     </Box>
   );
