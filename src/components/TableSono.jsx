@@ -12,8 +12,10 @@ import {
   Tr,
 } from '@chakra-ui/react';
 
-function TablesSono() {
+function TablesSono({listsono}) {
+  
   return (
+    <div>
     <TableContainer width={'100%'}>
       <Table variant="striped" colorScheme="teal">
         <Thead>
@@ -28,281 +30,31 @@ function TablesSono() {
           </Tr>
         </Thead>
         <Tbody>
-          <Tr>
-            <Td>حمیدرضا حسین زاده</Td>
-            <Td>3080146603</Td>
-            <Td>09364138132</Td>
-            <Td>30</Td>
-            <Td>عکس دندان جلو</Td>
-            <Td>دکتر حسین زاده</Td>
+          {listsono.map(sono=>(
+                <Tr key={sono.id}>
+                <Td>{sono.name}</Td>
+                <Td>{sono.codeMelli}</Td>
+                <Td>{sono.mob}</Td>
+                <Td>{sono.age}</Td>
+                <Td>{sono.nameSono}</Td>
+                <Td>{sono.nameDoktor}</Td>
 
-            <Td>
-              <Button
-                size="sm"
-                iconSpacing={0}
-                rightIcon={<DeleteIcon />}
-              ></Button>
-            </Td>
-          </Tr>
-          <Tr>
-            <Td>حمیدرضا حسین زاده</Td>
-            <Td>3080146603</Td>
-            <Td>09364138132</Td>
-            <Td>30</Td>
-            <Td>عکس دندان جلو</Td>
-            <Td>دکتر حسین زاده</Td>
+                <Td>
+                  <Button
+                    size="sm"
+                    iconSpacing={0}
+                    rightIcon={<DeleteIcon />}
+                  ></Button>
+                </Td>
+                </Tr>
 
-            <Td>
-              <Button
-                size="sm"
-                iconSpacing={0}
-                rightIcon={<DeleteIcon />}
-              ></Button>
-            </Td>
-          </Tr>
-          <Tr>
-            <Td>حمیدرضا حسین زاده</Td>
-            <Td>3080146603</Td>
-            <Td>09364138132</Td>
-            <Td>30</Td>
-            <Td>عکس دندان جلو</Td>
-            <Td>دکتر حسین زاده</Td>
-
-            <Td>
-              <Button
-                size="sm"
-                iconSpacing={0}
-                rightIcon={<DeleteIcon />}
-              ></Button>
-            </Td>
-          </Tr>
-          <Tr>
-            <Td>حمیدرضا حسین زاده</Td>
-            <Td>3080146603</Td>
-            <Td>09364138132</Td>
-            <Td>30</Td>
-            <Td>عکس دندان جلو</Td>
-            <Td>دکتر حسین زاده</Td>
-
-            <Td>
-              <Button
-                size="sm"
-                iconSpacing={0}
-                rightIcon={<DeleteIcon />}
-              ></Button>
-            </Td>
-          </Tr>
-          <Tr>
-            <Td>حمیدرضا حسین زاده</Td>
-            <Td>3080146603</Td>
-            <Td>09364138132</Td>
-            <Td>30</Td>
-            <Td>عکس دندان جلو</Td>
-            <Td>دکتر حسین زاده</Td>
-
-            <Td>
-              <Button
-                size="sm"
-                iconSpacing={0}
-                rightIcon={<DeleteIcon />}
-              ></Button>
-            </Td>
-          </Tr>
-          <Tr>
-            <Td>حمیدرضا حسین زاده</Td>
-            <Td>3080146603</Td>
-            <Td>09364138132</Td>
-            <Td>30</Td>
-            <Td>عکس دندان جلو</Td>
-            <Td>دکتر حسین زاده</Td>
-
-            <Td>
-              <Button
-                size="sm"
-                iconSpacing={0}
-                rightIcon={<DeleteIcon />}
-              ></Button>
-            </Td>
-          </Tr>
-          <Tr>
-            <Td>حمیدرضا حسین زاده</Td>
-            <Td>3080146603</Td>
-            <Td>09364138132</Td>
-            <Td>30</Td>
-            <Td>عکس دندان جلو</Td>
-            <Td>دکتر حسین زاده</Td>
-
-            <Td>
-              <Button
-                size="sm"
-                iconSpacing={0}
-                rightIcon={<DeleteIcon />}
-              ></Button>
-            </Td>
-          </Tr>
-          <Tr>
-            <Td>حمیدرضا حسین زاده</Td>
-            <Td>3080146603</Td>
-            <Td>09364138132</Td>
-            <Td>30</Td>
-            <Td>عکس دندان جلو</Td>
-            <Td>دکتر حسین زاده</Td>
-
-            <Td>
-              <Button
-                size="sm"
-                iconSpacing={0}
-                rightIcon={<DeleteIcon />}
-              ></Button>
-            </Td>
-          </Tr>
-          <Tr>
-            <Td>حمیدرضا حسین زاده</Td>
-            <Td>3080146603</Td>
-            <Td>09364138132</Td>
-            <Td>30</Td>
-            <Td>عکس دندان جلو</Td>
-            <Td>دکتر حسین زاده</Td>
-
-            <Td>
-              <Button
-                size="sm"
-                iconSpacing={0}
-                rightIcon={<DeleteIcon />}
-              ></Button>
-            </Td>
-          </Tr>
-          <Tr>
-            <Td>حمیدرضا حسین زاده</Td>
-            <Td>3080146603</Td>
-            <Td>09364138132</Td>
-            <Td>30</Td>
-            <Td>عکس دندان جلو</Td>
-            <Td>دکتر حسین زاده</Td>
-
-            <Td>
-              <Button
-                size="sm"
-                iconSpacing={0}
-                rightIcon={<DeleteIcon />}
-              ></Button>
-            </Td>
-          </Tr>
-          <Tr>
-            <Td>حمیدرضا حسین زاده</Td>
-            <Td>3080146603</Td>
-            <Td>09364138132</Td>
-            <Td>30</Td>
-            <Td>عکس دندان جلو</Td>
-            <Td>دکتر حسین زاده</Td>
-
-            <Td>
-              <Button
-                size="sm"
-                iconSpacing={0}
-                rightIcon={<DeleteIcon />}
-              ></Button>
-            </Td>
-          </Tr>
-          <Tr>
-            <Td>حمیدرضا حسین زاده</Td>
-            <Td>3080146603</Td>
-            <Td>09364138132</Td>
-            <Td>30</Td>
-            <Td>عکس دندان جلو</Td>
-            <Td>دکتر حسین زاده</Td>
-
-            <Td>
-              <Button
-                size="sm"
-                iconSpacing={0}
-                rightIcon={<DeleteIcon />}
-              ></Button>
-            </Td>
-          </Tr>
-          <Tr>
-            <Td>حمیدرضا حسین زاده</Td>
-            <Td>3080146603</Td>
-            <Td>09364138132</Td>
-            <Td>30</Td>
-            <Td>عکس دندان جلو</Td>
-            <Td>دکتر حسین زاده</Td>
-
-            <Td>
-              <Button
-                size="sm"
-                iconSpacing={0}
-                rightIcon={<DeleteIcon />}
-              ></Button>
-            </Td>
-          </Tr>
-          <Tr>
-            <Td>حمیدرضا حسین زاده</Td>
-            <Td>3080146603</Td>
-            <Td>09364138132</Td>
-            <Td>30</Td>
-            <Td>عکس دندان جلو</Td>
-            <Td>دکتر حسین زاده</Td>
-
-            <Td>
-              <Button
-                size="sm"
-                iconSpacing={0}
-                rightIcon={<DeleteIcon />}
-              ></Button>
-            </Td>
-          </Tr>
-          <Tr>
-            <Td>حمیدرضا حسین زاده</Td>
-            <Td>3080146603</Td>
-            <Td>09364138132</Td>
-            <Td>30</Td>
-            <Td>عکس دندان جلو</Td>
-            <Td>دکتر حسین زاده</Td>
-
-            <Td>
-              <Button
-                size="sm"
-                iconSpacing={0}
-                rightIcon={<DeleteIcon />}
-              ></Button>
-            </Td>
-          </Tr>
-          <Tr>
-            <Td>حمیدرضا حسین زاده</Td>
-            <Td>3080146603</Td>
-            <Td>09364138132</Td>
-            <Td>30</Td>
-            <Td>عکس دندان جلو</Td>
-            <Td>دکتر حسین زاده</Td>
-
-            <Td>
-              <Button
-                size="sm"
-                iconSpacing={0}
-                rightIcon={<DeleteIcon />}
-              ></Button>
-            </Td>
-          </Tr>
-          <Tr>
-            <Td>حمیدرضا حسین زاده</Td>
-            <Td>3080146603</Td>
-            <Td>09364138132</Td>
-            <Td>30</Td>
-            <Td>عکس دندان جلو</Td>
-            <Td>دکتر حسین زاده</Td>
-
-            <Td>
-              <Button
-                size="sm"
-                iconSpacing={0}
-                rightIcon={<DeleteIcon />}
-              ></Button>
-            </Td>
-          </Tr>
+          ))}
+         
+          
         </Tbody>
       </Table>
     </TableContainer>
+    </div>
   );
 }
 

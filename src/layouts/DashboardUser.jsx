@@ -45,15 +45,10 @@ import { ContextApp } from '../context/context-provider';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import TablesSono from '../components/TableSono';
-const LinkItems = [
-  { name: 'خانه', icon: FiHome },
-  { name: 'لیست سونو ها', icon: FiList },
-  { name: 'درخواست مرخصی', icon: FiCompass },
-  { name: 'کارتابل', icon: FiStar },
-  { name: 'تنظیمات', icon: FiSettings },
-];
 
-const SidebarContent = ({ onClose, ...rest }) => {
+
+
+const SidebarContent = ({ onClose, LinkItems, ...rest }) => {
   return (
     <Box
       overflow="hidden"
@@ -72,7 +67,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {LinkItems.map(link => (
-        <NavItem key={link.name} icon={link.icon}>
+        <NavItem key={link.name} icon={link.icon} onClick={()=>link.onClick()}>
           {link.name}
         </NavItem>
       ))}
@@ -239,6 +234,7 @@ const DashboardUser = () => {
   const [token, setToken] = useState('');
   const toast = useToast();
   const [user, setUser] = useState({ name: 'hMd' });
+  const [listsono,setListsono] = useState([{}]);
 
   const getUser = async () => {
     try {
@@ -252,6 +248,30 @@ const DashboardUser = () => {
       return {};
     }
   };
+
+  
+  const getSonoList = async() =>{
+    try {
+     
+      const res = await axios.get('http://94.183.213.199:8000/sonolist/all', {
+        headers: { Authorization: 'Bearer ' + token },
+      });
+      setListsono(res.data);
+      console.log(res.data)
+      return res.data;
+    } catch {
+      console.log('Eroror');
+      return {};
+    }
+  }
+  const LinkItems = [
+    { name: 'خانه', icon: FiHome , onClick:async ()=>{} },
+    { name: 'لیست سونو ها', icon: FiList,onClick:async ()=>{getSonoList()} },
+    { name: 'درخواست مرخصی', icon: FiCompass , onClick:async ()=>{}},
+    { name: 'کارتابل', icon: FiStar , onClick:async ()=>{}},
+    { name: 'تنظیمات', icon: FiSettings ,onClick:async ()=>{} },
+  ];
+  
   useEffect(() => {
     //   if (localStorage.getItem('token') != token) {
     //     if (location.state) {
@@ -263,9 +283,10 @@ const DashboardUser = () => {
     //   navigate('/');
     // }
     //}
-    setToken(
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjMwODAxNDY2MDMiLCJpZCI6MSwiaWF0IjoxNzMxOTYxMDc2LCJleHAiOjE3MzQxMjEwNzZ9.N7k-oSzX86NeT7ZamwRqC3yjL5zFzL4gsXN5aseiNO8'
-    );
+    // setToken(
+    //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjMwODAxNDY2MDMiLCJpZCI6MSwiaWF0IjoxNzMxOTYxMDc2LCJleHAiOjE3MzQxMjEwNzZ9.N7k-oSzX86NeT7ZamwRqC3yjL5zFzL4gsXN5aseiNO8'
+    // );
+    setToken('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjMwODAxNDY2MDMiLCJpZCI6MSwiaWF0IjoxNzMyMDA3NjUwLCJleHAiOjE3MzQxNjc2NTB9.2WdmO5FupDhmz9sO8YOB_2u4QYzBOFXOsAYR3C1ayJc')
     getUser();
   }, [token]);
   return (
@@ -275,6 +296,7 @@ const DashboardUser = () => {
       bg={useColorModeValue('gray.100', 'gray.900')}
     >
       <SidebarContent
+        LinkItems={LinkItems}
         onClose={() => onClose}
         display={{ base: 'none', md: 'block' }}
       />
@@ -291,8 +313,8 @@ const DashboardUser = () => {
         </DrawerContent>
       </Drawer>
       <MobileNav user={user} onOpen={onOpen} />
-      <Box overflow="auto" mr={{ base: 0, md: 60 }} p="4">
-        <TablesSono />
+      <Box mr={{ base: 0, md: 60 }} p="4">
+        {(listsono.length > 1 )? <TablesSono listsono = {listsono} /> : <></>}
       </Box>
     </Box>
   );
