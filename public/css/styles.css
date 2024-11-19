@@ -1,0 +1,50 @@
+@font-face {
+    font-family: 'AShekari';
+    src: url('../fonts/AShekari.eot');
+    src: url('../fonts/AShekari.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/AShekari.woff2') format('woff2'),
+        url('../fonts/AShekari.woff') format('woff'),
+        url('../fonts/AShekari.ttf') format('truetype'),
+        url('../fonts/AShekari.svg#AShekari') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'FarKhodkar';
+    src: url('../fonts/FarKhodkar.eot');
+    src: url('../fonts/FarKhodkar.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/FarKhodkar.woff2') format('woff2'),
+        url('../fonts/FarKhodkar.woff') format('woff'),
+        url('../fonts/FarKhodkar.ttf') format('truetype'),
+        url('../fonts/FarKhodkar.svg#Far.Khodkar') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Vazir";
+    src: url("../fonts/Vazir.eot");
+    src: url("../fonts/Vazir.eot?#iefix") format("embedded-opentype"),
+      url("../fonts/Vazir.woff2") format("woff2"),
+      url("../fonts/Vazir.woff") format("woff"),
+      url("../fonts/Vazir.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+body{
+    margin: 0;
+    padding: 0;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+::-webkit-scrollbar {
+    display: none;
+}
+
+
+
