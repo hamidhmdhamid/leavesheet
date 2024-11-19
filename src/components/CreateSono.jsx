@@ -1,13 +1,14 @@
 import { Box, Button, FormControl, FormLabel, Input } from '@chakra-ui/react';
 import { useState } from 'react';
 
-function CreateSono(handleCreateSono) {
+function CreateSono({ handleCreateSono }) {
   const [name, setName] = useState('');
   const [codeMelli, setCodeMelli] = useState('');
   const [age, setAge] = useState('');
   const [mob, setMob] = useState('');
   const [nameDoctor, setNameDoctor] = useState('');
   const [address, setAddress] = useState('');
+  const [nameSono, setNameSono] = useState('');
 
   const handleInput = event => {
     const target = event.target;
@@ -23,7 +24,9 @@ function CreateSono(handleCreateSono) {
     } else if (target.name === 'nameDoctor') {
       setNameDoctor(target.value);
     } else if (target.name === 'address') {
-      setAddress(target.name.value);
+      setAddress(target.value);
+    } else if (target.name === 'nameSono') {
+      setNameSono(target.value);
     }
   };
 
@@ -50,6 +53,10 @@ function CreateSono(handleCreateSono) {
         <Input onChange={handleInput} name="mob" placeholder="شماره همراه" />
       </FormControl>
       <FormControl mt={5} isRequired>
+        <FormLabel>نام سونو : </FormLabel>
+        <Input onChange={handleInput} name="nameSono" placeholder="نام سونو" />
+      </FormControl>
+      <FormControl mt={5} isRequired>
         <FormLabel>نام دکتر: </FormLabel>
         <Input
           onChange={handleInput}
@@ -63,7 +70,15 @@ function CreateSono(handleCreateSono) {
       </FormControl>
       <Button
         onClick={() => {
-          handleCreateSono({ name, codeMelli, age, mob, nameDoctor, address });
+          handleCreateSono({
+            name,
+            codeMelli,
+            age,
+            mob,
+            nameDoctor,
+            address,
+            nameSono,
+          });
         }}
         mt={5}
       >

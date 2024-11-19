@@ -232,8 +232,9 @@ const DashboardUser = () => {
   const navigate = useNavigate();
   const [token, setToken] = useState('');
   const toast = useToast();
-  const [user, setUser] = useState({ name: 'hMd' });
+  const [user, setUser] = useState('');
   const [listsono, setListsono] = useState([{}]);
+  const [selectTab, setSelectTab] = useState('');
 
   const getUser = async () => {
     try {
@@ -320,16 +321,28 @@ const DashboardUser = () => {
     mob,
     nameDoctor,
     address,
+    nameSono,
   }) => {
     try {
-      const res = await axios.post(`http://94.183.213.199:8000/sonolist/new`, {
-        headers: {
-          Authorization: 'Bearer ' + token,
-          ContentType: 'content-type:application/json',
+      console.log(nameSono);
+      const res = await axios.post(
+        `http://94.183.213.199:8000/sonolist/new`,
+        {
+          name,
+          mob,
+          nameSono,
+          codeMelli,
+          age: parseInt(age),
+          address,
+          nameDoctor,
         },
-      });
-      const prewListSono = listsono.map(sono => sono.id != id);
-      setListsono(prewListSono);
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log('Created');
       return true;
     } catch {
       console.log('Eroror');
@@ -347,12 +360,12 @@ const DashboardUser = () => {
     //   navigate('/');
     // }
     //}
-    // setToken(
-    //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjMwODAxNDY2MDMiLCJpZCI6MSwiaWF0IjoxNzMxOTYxMDc2LCJleHAiOjE3MzQxMjEwNzZ9.N7k-oSzX86NeT7ZamwRqC3yjL5zFzL4gsXN5aseiNO8'
-    // );
     setToken(
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjMwODAxNDY2MDMiLCJpZCI6MSwiaWF0IjoxNzMyMDA3NjUwLCJleHAiOjE3MzQxNjc2NTB9.2WdmO5FupDhmz9sO8YOB_2u4QYzBOFXOsAYR3C1ayJc'
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjMwODAxNDY2MDMiLCJpZCI6MSwiaWF0IjoxNzMxOTYxMDc2LCJleHAiOjE3MzQxMjEwNzZ9.N7k-oSzX86NeT7ZamwRqC3yjL5zFzL4gsXN5aseiNO8'
     );
+    // setToken(
+    //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjMwODAxNDY2MDMiLCJpZCI6MSwiaWF0IjoxNzMyMDA3NjUwLCJleHAiOjE3MzQxNjc2NTB9.2WdmO5FupDhmz9sO8YOB_2u4QYzBOFXOsAYR3C1ayJc'
+    // );
     getUser();
   }, [token]);
   return (
@@ -380,11 +393,11 @@ const DashboardUser = () => {
       </Drawer>
       <MobileNav signOut={signOut} user={user} onOpen={onOpen} />
       <Box mr={{ base: 0, md: 60 }} p="4">
-        {/* {listsono[0].name ? (
+        {listsono[0].name ? (
           <TablesSono listsono={listsono} handleRemoveSono={handleRemoveSono} />
         ) : (
           <></>
-        )} */}
+        )}
         <CreateSono handleCreateSono={handleCreateSono} />
       </Box>
     </Box>
